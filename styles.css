@@ -44,3 +44,22 @@ h2 {
     text-align: center;
     padding-top: 8px;
 }
+
+.error {
+    color: #d32f2f;
+    font-family: "Jost", sans-serif;
+    text-align: center;
+    padding: 20px;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid #ef9a9a;
+    border-radius: 4px;
+}
+
+.vastaus {
+    font-family: "Jost", sans-serif;
+    text-align: center;
+    padding: 50px;
+    font-size: medium;
+    font-weight: 400;
+}

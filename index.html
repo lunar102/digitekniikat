@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
         <div class="container">
             
             <!-- hamppari-ikoni -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" alt="Hamburger menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -44,48 +44,44 @@
         <div class="container mt-4">
             <section class="mb-4 p-3 bg-light">
                 <h1>Tehtävä 1.1</h1>
-        </div>
-        <div class="container mt-4">
-            <section class="mb-4 p-3 bg-light">
-                <h2>Haetaan tietoa...</h2>
+                <h2>JSON-tietue</h2>
             </section>
         </div>
-    <div id="vastaus"></div>"
-    <script>
-        fetch('tietue.json')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (responseJson) {
-                kerro(responseJson);
-            })
 
-            .catch(function (error) {
-                document.getElementById("vastaus").innerHTML = "<p class='error'>Tietoa ei voitu hakea.</p>";
-            })
+        <div id="vastaus" class="vastaus"></div>
+        <script>
+            fetch('tietue.json')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (responseJson) {
+                    kerro(responseJson);
+                })
+
+                .catch(function (error) {
+                    document.getElementById("vastaus").innerHTML = "<p class='error'>Tietoa ei voitu hakea.</p>";
+                })
 
 
-            function kerro(obj) {
-                let tiedot = "<h1>" + obj.otsikko + "</h1><br>"
-                    + obj.kuvaus + "<br><hr>"
-                    + "<p><img src=" + obj.kuva + "></p>"
-                    + + "<h3>" + "Opintojakso" + "</h3>" + "Nimi: " + obj.opintojakso.nimi + "<br>"
-                    + "Tunnus: " + obj.opintojakso.tunnus + "<br>"
-                    + "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br>";
+                function kerro(obj) {
+                    let tiedot = "<h1>" + obj.otsikko + "</h1><br>"
+                        + obj.kuvaus + "<br><hr>"
+                        + "<p><img src='" + obj.kuva + "'></p>"
+                        + "<center><h3>" + "Opintojakso" + "</h3>Nimi: " + obj.opintojakso.nimi + "<br>"
+                        + "Tunnus: " + obj.opintojakso.tunnus + "<br>"
+                        + "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br></center>";
 
-                tiedot += "<p><h3> Aiheet </h3>";
+                    tiedot += "<p><h3> Aiheet </h3>";
 
-            //for-silmukka, joka luo myös linkit sivulle
-                for (var i = 0; i < obj.tekniikat.length; i++) {
-                    tiedot += "<b>Aihe: " + obj.tekniikat[i].aihe + "</b>";
-                    tiedot += " <a href=" + obj.tekniikat[i].linkki + ">" + obj.tekniikat[i].linkki + "</a>" + "<br>";
+                    for (var i = 0; i < obj.tekniikat.length; i++) {
+                        tiedot += "<b>Aihe: " + obj.tekniikat[i].aihe + "</b>";
+                        tiedot += " <a href='" + obj.tekniikat[i].linkki + "'>" + obj.tekniikat[i].linkki + "</a><br>";
+                    }
+
+                    tiedot += "</p>";
+                    document.getElementById("vastaus").innerHTML = tiedot;
                 }
-
-                tiedot += "</p>";
-                document.getElementById("vastaus").innerHTML = tiedot;
-
-            }
-        </script>
+            </script>
     </main>
 </body>
 </html>
