@@ -1,0 +1,46 @@
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: fit-content;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-family: "Jost", sans-serif;
+    padding: 5px;
+}
+
+.navbar-nav .nav-link.active {
+    background-color: #6c757d;
+    color: white !important;
+    border-radius: 4px;
+}
+
+h1 {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    padding-top: 8px;
+}
+
+h2 {
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: light;
+    text-align: center;
+    padding-top: 8px;
+}
