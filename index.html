@@ -39,20 +39,20 @@
             </div>
         </div>
     </nav>
-<main>
-    <!-- ensimmäinen kontti -->
-    <div class="container mt-4">
-        <section class="mb-4 p-3 bg-light">
-            <h1>Tehtävä 1.1</h1>
-    </div>
-    <div class="container mt-4">
-        <section class="mb-4 p-3 bg-light">
-            <h2>Haetaan tietoa...</h2>
-        </section>
-    </div>
-<div id="vastaus"></div>"
+    <main>
+        <!-- ensimmäinen kontti -->
+        <div class="container mt-4">
+            <section class="mb-4 p-3 bg-light">
+                <h1>Tehtävä 1.1</h1>
+        </div>
+        <div class="container mt-4">
+            <section class="mb-4 p-3 bg-light">
+                <h2>Haetaan tietoa...</h2>
+            </section>
+        </div>
+    <div id="vastaus"></div>"
     <script>
-        fetch('digitekniikat.json')
+        fetch('tietue.json')
             .then(function (response) {
                 return response.json();
             })
@@ -86,6 +86,6 @@
 
             }
         </script>
-</main>
+    </main>
 </body>
 </html>
