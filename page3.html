@@ -13,6 +13,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Tehtävä 2.1 - Pokehaku</title>
 </head>
+<style>
+    img {
+        width: 200px;
+    }
+</style>
 <body>
     <!-- nav -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,46 +48,90 @@
         </div>
     </nav>
     <main>
-
+        <!-- pokemon-kontti -->
         <div class="pokeContainer">
             <h1 style="padding: 40px 0px 20px 0px;">Pokemon-haku</h1>
             <p>
                 <input type="text" id="pokemonName" placeholder="Kirjoita Pokemonin nimi...">
-                <button onclick="poke()">Hae</button><br>
+                <button id="haeButton" onclick="poke()">Hae</button><br>
 
                 <div id="nimi" style="padding: 20px;"></div>
+                <button id="kaannaButton" onclick="kaannaPokemon()" style="display: none;">Käännä</button><br>
                 <p id="kuva2"></p>
             </p>
         </div>
 
     <script>
+        // pokemon-haku
         function poke() {
-            const pokemonName = document.getElementById('pokemonName').value.toLowerCase();
+            const pokemonName = document.getElementById("pokemonName").value.toLowerCase();
 
             if (!pokemonName) {
-                document.getElementById("nimi").innerHTML = "Syötä Pokemonin nimi.";
+                document.getElementById("nimi").innerHTML = "Syötä Pokémonin nimi!";
                 document.getElementById("kuva2").innerHTML = "";
+                document.getElementById("kaannaButton").style.display = "none";
                 return;
             }
+            // haetaan pokemonin tiedot
             fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error("Pokemonia ei löytynyt.");
+                        throw new Error("<h3>Pokémonia ei löytynyt... kokeile seuraavia:</h3><br>Ditto<br>Pikachu<br>Bulbasaur<br>Squirtle<br>Charmander");
                     }
                     return response.json();
                 })
                 .then(data => {
-                    document.getElementById("nimi").innerHTML =
-                    `<strong>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</strong>`;
                     const spriteUrl = data.sprites.other['official-artwork'].front_default;
 
-                    document.getElementById("kuva2").innerHTML = `<img src="${spriteUrl}" alt="${data.name}">`;
-        })
-        .catch(error => {
-            document.getElementById("nimi").innerHTML = error;
-            document.getElementById("kuva2").innerHTML = "";
-        });
+                    // näytetään pokemonin tiedot
+                    const pokemonInfo = `
+                        <h2 style="color: #007bff; padding: 40px 0px 20px 0px">${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
+                        <p><strong>Paino:</strong> ${data.weight / 10} kg</p>
+                        <p><strong>Korkeus:</strong> ${data.height / 10} m</p>
+                        <p><strong>Basic XP:</strong> ${data.base_experience}</p>
+                        <img id="pokemonImage" src="${spriteUrl}" alt="${data.name}">
+                    `;
+                    
+                    document.getElementById("kuva2").innerHTML = pokemonInfo;
+
+                    document.getElementById("kaannaButton").style.display = "inline-block";
+
+                    document.getElementById("pokemonName").value = "";
+                })
+
+                // error-handling
+                .catch(error => {
+                    document.getElementById("nimi").innerHTML = error.message;
+                    document.getElementById("kuva2").innerHTML = "";
+                    document.getElementById("kaannaButton").style.display = "none";
+                });
+        }
+
+    // käännetään pokemon
+    function kaannaPokemon() {
+        const pokemonName = document.getElementById("pokemonName").value.toLowerCase();
+
+        // haetaan pokemonin tiedot
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Pokémonia ei voitu kääntää.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const backSpriteUrl = data.sprites.back_default;
+                if (backSpriteUrl) {
+                    document.getElementById("pokemonImage").src = backSpriteUrl;
+                } else {
+                    document.getElementById("nimi").innerHTML = "Takakuvaa ei löytynyt.";
+                }
+            })
+            .catch(error => {
+                document.getElementById("nimi").innerHTML = error.message;
+            });
     }
+
     </script>
 
     </main>
