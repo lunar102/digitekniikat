@@ -63,3 +63,9 @@ h2 {
     font-size: medium;
     font-weight: 400;
 }
+
+.pokeContainer {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 500px;
+}

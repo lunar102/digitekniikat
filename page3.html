@@ -42,6 +42,49 @@
             </div>
         </div>
     </nav>
+    <main>
 
+        <div class="pokeContainer">
+            <h1 style="padding: 40px 0px 20px 0px;">Pokemon-haku</h1>
+            <p>
+                <input type="text" id="pokemonName" placeholder="Kirjoita Pokemonin nimi...">
+                <button onclick="poke()">Hae</button><br>
+
+                <div id="nimi" style="padding: 20px;"></div>
+                <p id="kuva2"></p>
+            </p>
+        </div>
+
+    <script>
+        function poke() {
+            const pokemonName = document.getElementById('pokemonName').value.toLowerCase();
+
+            if (!pokemonName) {
+                document.getElementById("nimi").innerHTML = "Syötä Pokemonin nimi.";
+                document.getElementById("kuva2").innerHTML = "";
+                return;
+            }
+            fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Pokemonia ei löytynyt.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById("nimi").innerHTML =
+                    `<strong>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</strong>`;
+                    const spriteUrl = data.sprites.other['official-artwork'].front_default;
+
+                    document.getElementById("kuva2").innerHTML = `<img src="${spriteUrl}" alt="${data.name}">`;
+        })
+        .catch(error => {
+            document.getElementById("nimi").innerHTML = error;
+            document.getElementById("kuva2").innerHTML = "";
+        });
+    }
+    </script>
+
+    </main>
 </body>
 </html>
