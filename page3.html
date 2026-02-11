@@ -76,7 +76,7 @@
             fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error("<h3>Pokémonia ei löytynyt... kokeile seuraavia:</h3><br>Ditto<br>Pikachu<br>Bulbasaur<br>Squirtle<br>Charmander");
+                        throw new Error("Pokémonia ei löytynyt.");
                     }
                     return response.json();
                 })
@@ -96,7 +96,7 @@
 
                     document.getElementById("kaannaButton").style.display = "inline-block";
 
-                    document.getElementById("pokemonName").value = "";
+                    document.getElementById("nimi").value = "";
                 })
 
                 // error-handling
@@ -127,6 +127,7 @@
                     document.getElementById("nimi").innerHTML = "Takakuvaa ei löytynyt.";
                 }
             })
+            // error-handling
             .catch(error => {
                 document.getElementById("nimi").innerHTML = error.message;
             });
