@@ -69,3 +69,9 @@ h2 {
     margin: 20px auto;
     max-width: 500px;
 }
+
+.weatherData {
+    text-align: center;
+    display: block;
+    justify-content: center;
+}
