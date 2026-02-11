@@ -67,7 +67,7 @@
             const pokemonName = document.getElementById("pokemonName").value.toLowerCase();
 
             if (!pokemonName) {
-                document.getElementById("nimi").innerHTML = "Syötä Pokémonin nimi!";
+                document.getElementById("nimi").innerHTML = "Syötä Pokemonin nimi!";
                 document.getElementById("kuva2").innerHTML = "";
                 document.getElementById("kaannaButton").style.display = "none";
                 return;
@@ -76,7 +76,7 @@
             fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error("Pokémonia ei löytynyt.");
+                        throw new Error("Pokemonia ei löytynyt.");
                     }
                     return response.json();
                 })
@@ -115,7 +115,7 @@
         fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Pokémonia ei voitu kääntää.");
+                    throw new Error("Pokemonia ei voitu kääntää.");
                 }
                 return response.json();
             })
