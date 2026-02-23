@@ -76,7 +76,8 @@
             fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error("Pokemonia ei löytynyt.");
+                        // kömpelösti listattu, mutta toivottavasti toimii laajasti
+                        throw new Error("Pokemonia ei löytynyt!");
                     }
                     return response.json();
                 })
@@ -108,30 +109,40 @@
         }
 
     // käännetään pokemon
-    function kaannaPokemon() {
-        const pokemonName = document.getElementById("pokemonName").value.toLowerCase();
+    let onKäännetty = false;
 
-        // haetaan pokemonin tiedot
-        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Pokemonia ei voitu kääntää.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                const backSpriteUrl = data.sprites.back_default;
-                if (backSpriteUrl) {
-                    document.getElementById("pokemonImage").src = backSpriteUrl;
-                } else {
-                    document.getElementById("nimi").innerHTML = "Takakuvaa ei löytynyt.";
-                }
-            })
-            // error-handling
-            .catch(error => {
-                document.getElementById("nimi").innerHTML = error.message;
-            });
-    }
+        function kaannaPokemon() {
+            const pokemonName = document.getElementById("pokemonName").value.toLowerCase();
+            const pokemonImage = document.getElementById("pokemonImage");
+            const kaannaButton = document.getElementById("kaannaButton");
+            const nimiElement = document.getElementById("nimi");
+
+            nimiElement.innerHTML = ""; // tyhjennetään nimi-elementti, jotta virheilmoitus ei jää näkyviin
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Pokemonia ei löytynyt.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (onKäännetty) {
+                        // käännetään tak etukuvaan
+                        pokemonImage.src = data.sprites.front_default;
+                        kaannaButton.textContent = "Käännä";
+                    } else {
+                        // käännetään takakuvaan
+                        pokemonImage.src = data.sprites.back_default;
+                        kaannaButton.textContent = "Käännä takaisin";
+                    }
+                    onKäännetty = !onKäännetty; // vaihdetaan pokemonin
+                })
+                .catch(error => {
+                    document.getElementById("nimi").innerHTML = error.message;
+                });
+        }
+
 
     </script>
 
